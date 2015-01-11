@@ -102,7 +102,7 @@ public class ProxyFilter implements Filter {
             }
             String uri = server.getRule().process(getURI(httpRequest));
             String url = request.getScheme() + "://" + domainName + server.getPath() + uri;
-            log.debug("Connecting to " + url);
+            log.error("Connecting to " + url);
             
             ResponseHandler responseHandler = null;
             
