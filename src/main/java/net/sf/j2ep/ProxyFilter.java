@@ -32,7 +32,6 @@ import net.sf.j2ep.model.RequestHandler;
 import net.sf.j2ep.model.ResponseHandler;
 import net.sf.j2ep.model.Server;
 
-import org.apache.cactus.internal.util.StringUtil;
 import org.apache.commons.httpclient.*;
 import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.params.HttpClientParams;
