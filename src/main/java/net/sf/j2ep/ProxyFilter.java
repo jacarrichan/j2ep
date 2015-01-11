@@ -92,7 +92,11 @@ public class ProxyFilter implements Filter {
         } else {
             String realHost=httpRequest.getHeader("real_host");
             String realPort=httpRequest.getHeader("real_port");
+            String scheme=httpRequest.getHeader("scheme");
             String domainName=server.getDomainName();
+            if(null==scheme){
+               scheme=request.getScheme();
+            }            
             if(null!=realHost&&null!=realPort){
                 domainName=realHost+":"+realPort;
             }
