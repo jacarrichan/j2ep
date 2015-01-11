@@ -32,6 +32,7 @@ import net.sf.j2ep.model.RequestHandler;
 import net.sf.j2ep.model.ResponseHandler;
 import net.sf.j2ep.model.Server;
 
+import org.apache.cactus.internal.util.StringUtil;
 import org.apache.commons.httpclient.*;
 import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.params.HttpClientParams;
@@ -90,8 +91,14 @@ public class ProxyFilter implements Filter {
         if (server == null) {
             filterChain.doFilter(request, response);
         } else {
+            String realHost=httpRequest.getHeader("real_host");
+            String realPort=httpRequest.getHeader("real_port");
+            String domainName=server.getDomainName();
+            if(null!=realHost&&null!=realPort){
+                domainName=realHost+":"+realPort;
+            }
             String uri = server.getRule().process(getURI(httpRequest));
-            String url = request.getScheme() + "://" + server.getDomainName() + server.getPath() + uri;
+            String url = request.getScheme() + "://" + domainName + server.getPath() + uri;
             log.debug("Connecting to " + url);
             
             ResponseHandler responseHandler = null;
@@ -195,7 +202,6 @@ public class ProxyFilter implements Filter {
         httpClient = new HttpClient(new MultiThreadedHttpConnectionManager());
         httpClient.getParams().setBooleanParameter(HttpClientParams.USE_EXPECT_CONTINUE, false);
         httpClient.getParams().setCookiePolicy(CookiePolicy.IGNORE_COOKIES);
-        
         String data = filterConfig.getInitParameter("dataUrl");
         if (data == null) {
             serverChain = null;
