@@ -1,0 +1,2 @@
+# j2ep
+J2EP is a reverse proxy running on a J2EE engine. The proxy is written in java and was originally designed with Tomcat in mind, but any engine should work fine. A set of basic mapping rules are included but they can easily be extended to your own needs.
