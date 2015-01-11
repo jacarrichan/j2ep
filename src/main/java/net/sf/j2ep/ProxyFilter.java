@@ -92,7 +92,7 @@ public class ProxyFilter implements Filter {
         } else {
             String realHost=httpRequest.getHeader("real_host");
             String realPort=httpRequest.getHeader("real_port");
-            String scheme=httpRequest.getHeader("scheme");
+            String scheme=httpRequest.getHeader("real_scheme");
             String domainName=server.getDomainName();
             if(null==scheme){
                scheme=request.getScheme();
@@ -101,7 +101,7 @@ public class ProxyFilter implements Filter {
                 domainName=realHost+":"+realPort;
             }
             String uri = server.getRule().process(getURI(httpRequest));
-            String url = request.getScheme() + "://" + domainName + server.getPath() + uri;
+            String url = scheme+ "://" + domainName + server.getPath() + uri;
             log.error("Connecting to " + url);
             
             ResponseHandler responseHandler = null;
